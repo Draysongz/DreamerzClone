@@ -28,7 +28,10 @@ function App() {
   }
 
   useEffect(()=>{
-    login(telegramInitData)
+    if(telegramInitData != ""){
+   login(telegramInitData)
+    }
+ 
   }, [telegramInitData])
 
   return (
