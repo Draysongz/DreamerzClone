@@ -14,29 +14,33 @@ import WebApp from "@twa-dev/sdk";
 import { useState, useEffect } from "react";
 
 function App() {
-  const [telegramInitData, setTelegramInitdata] = useState("")
+  const [telegramInitData, setTelegramInitData] = useState<string>("");
 
-  const {loading, login, user} = useAuth()
+  const { login, user } = useAuth();
+  // const telegramInitData ="query_id=AAElBO5_AAAAACUE7n-OXKaOuser=%7B%22id%22%3A2146305061%2C%22first_name%22%3A%22Crypto%22%2C%22last_name%22%3A%22Dray%22%2C%22username%22%3A%22Habibilord%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1728157663&hash=88abaf102c4ab57a7e55922b2cd25debd5361e81becf43e10e3625225a2c6345"
 
-  if(user){
-    console.log(user)
-  }
-  
-  useEffect(()=>{
-    const initData = WebApp.initData
-    setTelegramInitdata(initData)
-  }, [])
-
-  if(loading){
-    return 'Loading....'
-  }
+  // Effect to set Telegram init data
+  useEffect(() => {
+    const initData = WebApp.initData;
+    setTelegramInitData(initData);
+  }, []);
 
   useEffect(()=>{
-    if(telegramInitData != ""){
-   login(telegramInitData)
+    if(user){
+      alert(user)
     }
- 
-  }, [telegramInitData])
+  }, [user])
+
+  // Call the login function when telegramInitData is available
+  useEffect(() => {
+    if (telegramInitData) {
+      login(telegramInitData);
+    }
+  }, [telegramInitData, login]);
+
+  if (!user) {
+    return <div>Loading...</div>; // Better loading indication
+  }
 
   return (
     <ChakraProvider theme={customTheme}>
