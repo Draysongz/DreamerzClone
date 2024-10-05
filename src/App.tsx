@@ -9,8 +9,28 @@ import Tournament from "./pages/Tournament";
 import Friends from "./pages/Friends";
 import Minigames from "./pages/Minigames";
 import Profile from "./pages/Profile";
+import { useAuth } from "./context/AuthContext";
+import WebApp from "@twa-dev/sdk";
+import { useState, useEffect } from "react";
 
 function App() {
+  const [telegramInitData, setTelegramInitdata] = useState("")
+
+  const {loading, login, user} = useAuth()
+
+  useEffect(()=>{
+    const initData = WebApp.initData
+    setTelegramInitdata(initData)
+  }, [])
+
+  if(loading && !user){
+    return 'Loading....'
+  }
+
+  useEffect(()=>{
+    login(telegramInitData)
+  }, [telegramInitData])
+
   return (
     <ChakraProvider theme={customTheme}>
     <Box width={'100vw'} overflowX={'hidden'}>
