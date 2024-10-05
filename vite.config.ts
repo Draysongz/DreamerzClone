@@ -8,7 +8,7 @@ export default defineConfig({
     proxy: {
       // Proxy API requests to backend running on http://localhost:3000
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'https://c1a2-105-113-59-239.ngrok-free.app',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '') // Optional: remove /api prefix
       }
