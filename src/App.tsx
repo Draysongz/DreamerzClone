@@ -23,7 +23,7 @@ function App() {
     setTelegramInitdata(initData)
   }, [])
 
-  if(loading && !user){
+  if(loading){
     return 'Loading....'
   }
 
