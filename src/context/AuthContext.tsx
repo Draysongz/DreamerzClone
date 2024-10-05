@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   // Function to login and store the JWT token
   const login = async (telegramInitData: string) => {
     try {
-      const response = await axios.post('/api/auth/telegram', {
+      const response = await axios.post('https://c1a2-105-113-59-239.ngrok-free.app/api/auth', {
         initData: telegramInitData,
       });
       const { token, user } = response.data;
