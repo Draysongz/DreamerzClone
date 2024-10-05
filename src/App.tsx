@@ -18,6 +18,10 @@ function App() {
 
   const {loading, login, user} = useAuth()
 
+  if(user){
+    console.log(user)
+  }
+  
   useEffect(()=>{
     const initData = WebApp.initData
     setTelegramInitdata(initData)
