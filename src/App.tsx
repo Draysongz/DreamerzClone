@@ -15,21 +15,17 @@ import { useState, useEffect } from "react";
 
 function App() {
   const [telegramInitData, setTelegramInitData] = useState<string>("");
-  const [photoUrl, setPhotoUrl] = useState<string>("")
+  
 
  
   // const hash  = "query_id=AAElBO5_AAAAACUE7n9PiZPp&user=%7B%22id%22%3A2146305061%2C%22first_name%22%3A%22Crypto%22%2C%22last_name%22%3A%22Dray%22%2C%22username%22%3A%22Habibilord%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1728202077&hash=8bf1e3cd6f0f4fdda851de17b4ae1e697086bd662c4e5eccbafdcc15441719a3"
 
-  const {loading, userData} = useUserLogin(telegramInitData, photoUrl)
+  const {loading, userData} = useUserLogin(telegramInitData)
 
   // Effect to set Telegram init data
   useEffect(() => {
     WebApp.expand();
     const initData = WebApp.initData;
-    const unsafeInit = WebApp.initDataUnsafe
-      if (unsafeInit && unsafeInit.user && unsafeInit.user.photo_url) {
-      setPhotoUrl(unsafeInit.user.photo_url);
-    }
     setTelegramInitData(initData);
   }, []);
 
