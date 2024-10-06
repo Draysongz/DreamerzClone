@@ -44,11 +44,12 @@ export function useRoyal() {
     Deposit: async (amount: number) => {
       const contractBalanceBefore = await RoyalContract?.getContractBalance();
       console.log(contractBalanceBefore);
-      const finalAmount = amount + 0.05
+      let finalAmount = amount + 0.05
+      let finalAmountString = finalAmount.toString()
       RoyalContract?.send(
         sender,
         {
-          value: toNano(finalAmount.toString()),
+          value: toNano(finalAmountString)
         },
         {
             $$type: "BuySpin",
