@@ -23,7 +23,7 @@ function App() {
   // Effect to set Telegram init data
   useEffect(() => {
     const initData = WebApp.initData;
-    const photo_url = WebApp.initDataUnsafe.user?.photo_url
+    const photo_url = WebApp.initDataUnsafe.user!.photo_url!
     if(photo_url){
       setPhotoUrl(photo_url)
     }
