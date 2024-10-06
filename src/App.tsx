@@ -41,7 +41,7 @@ function App() {
     if (telegramInitData && photoUrl) {
       login(telegramInitData, photoUrl);
     }
-  }, [telegramInitData, login]);
+  }, [telegramInitData, photoUrl, login]);
 
   if (!user) {
     return <div>Loading...</div>; // Better loading indication
