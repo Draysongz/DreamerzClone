@@ -38,10 +38,10 @@ function App() {
 
   // Call the login function when telegramInitData is available
   useEffect(() => {
-    if (telegramInitData && photoUrl) {
+    if (telegramInitData ) {
       login(telegramInitData, photoUrl);
     }
-  }, [telegramInitData, photoUrl, login]);
+  }, [telegramInitData, login]);
 
   if (!user) {
     return <div>Loading...</div>; // Better loading indication
