@@ -8,9 +8,10 @@ import {
 import { Link } from "react-router-dom";
 // import star from '/star.png'
 import { BsCurrencyDollar } from "react-icons/bs";
-import { GiWallet } from "react-icons/gi";
+// import { GiWallet } from "react-icons/gi";
 // import { FaBell } from "react-icons/fa";
 import { HiUser } from "react-icons/hi2";
+import { TonConnectButton } from "@tonconnect/ui-react";
 // import { IoMdHelpCircle } from "react-icons/io";
 
 export default function Header() {
@@ -71,23 +72,11 @@ export default function Header() {
       <Flex alignItems={"center"} gap={3}>
         <Flex
           alignItems={"center"}
-          border={"1px solid rgba(0, 0, 0, 0.3)"}
-          borderRadius={"20px"}
           p={{ base: "4px 7px", sm: "5px 10px" }}
           gap={1}
         >
-          <Icon
-            as={GiWallet}
-            width={{ base: 4, sm: 10 }}
-            height={{ base: 4, sm: 10 }}
-            boxSize={{ base: 4, sm: 5 }}
-            borderRadius={"20px"}
-            color={"rgba(0, 0, 0, 0.3)"}
-            cursor={"pointer"}
-          />
-          <Text fontWeight={600} fontSize={{ base: "14px", sm: "14px" }}>
-            Connect Wallet
-          </Text>
+
+          <TonConnectButton />
         </Flex>
         <Link to='/profile'>
         <Flex position={"relative"}>

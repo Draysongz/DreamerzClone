@@ -15,10 +15,13 @@ import { useState, useEffect } from "react";
 
 function App() {
   const [telegramInitData, setTelegramInitData] = useState<string>("");
+  const queryString = window.location.search; // Get the query string
+  const urlParams = new URLSearchParams(queryString);
+  const referralId = urlParams.get("referralCode")!
   
 
  
-  // const hash  = "query_id=AAElBO5_AAAAACUE7n9PiZPp&user=%7B%22id%22%3A2146305061%2C%22first_name%22%3A%22Crypto%22%2C%22last_name%22%3A%22Dray%22%2C%22username%22%3A%22Habibilord%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1728202077&hash=8bf1e3cd6f0f4fdda851de17b4ae1e697086bd662c4e5eccbafdcc15441719a3"
+  // const telegramInitData  = "query_id=AAElBO5_AAAAACUE7n9PiZPp&user=%7B%22id%22%3A2146305061%2C%22first_name%22%3A%22Crypto%22%2C%22last_name%22%3A%22Dray%22%2C%22username%22%3A%22Habibilord%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1728202077&hash=8bf1e3cd6f0f4fdda851de17b4ae1e697086bd662c4e5eccbafdcc15441719a3"
 
 
 
@@ -29,7 +32,7 @@ function App() {
     setTelegramInitData(initData);
   }, []);
 
-  const {loading, userData} = useUserLogin(telegramInitData)
+  const {loading, userData} = useUserLogin(telegramInitData, referralId)
 
 
 

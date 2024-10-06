@@ -1,0 +1,199 @@
+#pragma version =0.4.4;
+#pragma allow-post-modification;
+#pragma compute-asm-ltr;
+
+#include "tact_RoyalUsdt.headers.fc";
+#include "tact_RoyalUsdt.stdlib.fc";
+#include "tact_RoyalUsdt.constants.fc";
+#include "tact_RoyalUsdt.storage.fc";
+
+;;
+;; Contract RoyalUsdt functions
+;;
+
+(slice, cell, int, int) $RoyalUsdt$_contract_init(slice $admin) impure inline_ref {
+    var (($self'adminAddress, $self'arr, $self'arrLength, $self'arrStart)) = (null(), null(), 0, 0);
+    $self'adminAddress = $admin;
+    return ($self'adminAddress, $self'arr, $self'arrLength, $self'arrStart);
+}
+
+((slice, cell, int, int), ()) $RoyalUsdt$_fun_arrPush((slice, cell, int, int) $self, slice $address, int $balance) impure inline_ref {
+    var (($self'adminAddress, $self'arr, $self'arrLength, $self'arrStart)) = $self;
+    __tact_debug_str(__gen_slice_string_21c4c193f783a95c46e50c18045986c56d2d68f2e20a609236df38c094931e42(), __gen_slice_string_d2533564a357dc35c78795905ef66b4aba405a28061b399edee8f69c0ff447e4(), "File contracts/royal_usdt.tact:19:9:");
+    $self'arr~__tact_dict_set_slice_int(267, $address, $balance, 1);
+    __tact_debug_str(__gen_slice_string_377705605c178f75fdd700a0ff8248a50ea6a07411008146a7fb916b62f66da2(), __gen_slice_string_7fa7af7174ef01b61c5a1882a738bd45b5b4f6d138fbe613c5365a0e0cae10b3(), "File contracts/royal_usdt.tact:21:9:");
+    $self'arrLength = ($self'arrLength + 1);
+    __tact_debug_str(__gen_slice_string_19264213eacc3fb8ced9491cb35bd820f984bdacac4ef3733d0feadddb46f787(), __gen_slice_string_d6866bf80bf7d0d75df915959222d6d3a9d0fdc97e007c13dde8171102e449ad(), "File contracts/royal_usdt.tact:23:9:");
+    return (($self'adminAddress, $self'arr, $self'arrLength, $self'arrStart), ());
+}
+
+((slice, cell, int, int), int) $RoyalUsdt$_fun_contractBalance((slice, cell, int, int) $self) impure inline_ref {
+    var (($self'adminAddress, $self'arr, $self'arrLength, $self'arrStart)) = $self;
+    var $fresh$ret_0 = $global_myBalance();
+    return (($self'adminAddress, $self'arr, $self'arrLength, $self'arrStart), $fresh$ret_0);
+}
+
+;;
+;; Receivers of a Contract RoyalUsdt
+;;
+
+(((slice, cell, int, int)), ()) %$RoyalUsdt$_internal_empty((slice, cell, int, int) $self) impure inline {
+    var ($self'adminAddress, $self'arr, $self'arrLength, $self'arrStart) = $self;
+    __tact_debug_str(__gen_slice_string_d4ac4197f9a7d50c59c39ad8548801590f72ffb996b0259d0db3f081129496b6(), __gen_slice_string_bd7c6808bca64d7cacd763a1ea33c08f74a9b303c4aa9686a90607ff4cce59ab(), "File contracts/royal_usdt.tact:29:9:");
+    return (($self'adminAddress, $self'arr, $self'arrLength, $self'arrStart), ());
+}
+
+(((slice, cell, int, int)), ()) $RoyalUsdt$_internal_binary_BuySpin((slice, cell, int, int) $self, (int) $msg) impure inline {
+    var ($self'adminAddress, $self'arr, $self'arrLength, $self'arrStart) = $self;
+    var ($msg'amount) = $msg;
+    var ($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw) = __tact_context_get();
+    __tact_debug_str(__tact_int_to_string($ctx'value), __gen_slice_string_dbe5b4cb15654458564a939234c54475944f887108d46108ca0b7ed103e42985(), "File contracts/royal_usdt.tact:33:9:");
+    ($self'adminAddress, $self'arr, $self'arrLength, $self'arrStart)~$RoyalUsdt$_fun_arrPush(__tact_context_get_sender(), true);
+    $global_emit($SpinBuyEvent$_store_cell($SpinBuyEvent$_constructor_amount_sender($ctx'value, __tact_context_get_sender())));
+    return (($self'adminAddress, $self'arr, $self'arrLength, $self'arrStart), ());
+}
+
+(((slice, cell, int, int)), ()) $RoyalUsdt$_internal_binary_ChangeAdmin((slice, cell, int, int) $self, (slice) $msg) impure inline {
+    var ($self'adminAddress, $self'arr, $self'arrLength, $self'arrStart) = $self;
+    var ($msg'newOwner) = $msg;
+    $self'adminAddress = $msg'newOwner;
+    return (($self'adminAddress, $self'arr, $self'arrLength, $self'arrStart), ());
+}
+
+(((slice, cell, int, int)), ()) $RoyalUsdt$_internal_binary_ClaimWinnings((slice, cell, int, int) $self, (int, slice) $msg) impure inline {
+    var ($self'adminAddress, $self'arr, $self'arrLength, $self'arrStart) = $self;
+    var ($msg'amount, $msg'to) = $msg;
+    __tact_debug_str(__gen_slice_string_a274725224d06b35ca714a6f5e89d04f942666a2ebf98b6194c4a46951e7ef71(), __gen_slice_string_8cdf5b9367f9ac62ee89395f61bfac0222d93d6362d8efba0cd4ffcbcb6bd25e(), "File contracts/royal_usdt.tact:41:9:");
+    slice $owner = __tact_context_get_sender();
+    __tact_debug_str(__gen_slice_string_e82bda6c3f3fe88918bd1d55a4263015535353eb158c851739c70899a1302ebe(), __gen_slice_string_f5ac1ff9d65da1af304b43d74b885880e91a2da281aa2c669c1200274a61b14c(), "File contracts/royal_usdt.tact:43:9:");
+    int $check = __tact_not_null(__tact_dict_get_slice_int($self'arr, 267, $owner, 1));
+    if ($check) {
+        __tact_debug_str(__gen_slice_string_6a18fdba44466dfd4f9df1e535a1c7f8fe1acd815b971c4f1bc41a1ba2cf250f(), __gen_slice_string_81342e4c41d40851198495bee0678c3bc740150e36524b8085add492f8b3ad51(), "File contracts/royal_usdt.tact:46:15:");
+        __tact_debug_str(__gen_slice_string_25109ebee7017d1004616b2e1907a988e8eddb309d98c3894ecad6b1cf64ac9a(), __gen_slice_string_51537039cd51adcd24cf1deb19828b8aaa09dadf27902771ece4edbd1f0ce8a4(), "File contracts/royal_usdt.tact:48:9:");
+        $global_send($SendParameters$_constructor_to_bounce_value_mode(__tact_context_get_sender(), true, $msg'amount, 66));
+        __tact_debug_str(__gen_slice_string_c52cedc3b7f4313fa351b142973a8da02006bbca7f2f473a0bc3b7655903ad2c(), __gen_slice_string_770636991d8ed583a51cc2d01dd0082d2afd5b6c2248d8480dca918f1a739343(), "File contracts/royal_usdt.tact:58:9:");
+    } else {
+        slice $text = __gen_slice_string_accaac67c0572f76e164f5ad340457d20bfb8fff08a05139ba768f1f7223d5ad();
+        ($self'adminAddress, $self'arr, $self'arrLength, $self'arrStart)~$RoyalUsdt$_fun_reply($String$_fun_asComment($text));
+    }
+    return (($self'adminAddress, $self'arr, $self'arrLength, $self'arrStart), ());
+}
+
+(((slice, cell, int, int)), ()) $RoyalUsdt$_internal_binary_Withdraw((slice, cell, int, int) $self, (int, slice) $msg) impure inline {
+    var ($self'adminAddress, $self'arr, $self'arrLength, $self'arrStart) = $self;
+    var ($msg'amount, $msg'recipient) = $msg;
+    __tact_debug_str(__gen_slice_string_31b74ad2f63df3db90e1b1625ed239bbdaa025ee00cc74d36fe0efa994430df4(), __gen_slice_string_a6e4667758cc86a1764b786eee1f4c482512b15becd2bd1b670ad620a5e7df47(), "File contracts/royal_usdt.tact:67:9:");
+    throw_unless(62026, ( __tact_slice_eq_bits($self'adminAddress, __tact_context_get_sender()) ));
+    __tact_debug_str(__gen_slice_string_55434e5cd50d6bc7b74fdfb60fe3e987a6597ab82c89cda987d6e713e59c555a(), __gen_slice_string_ecb4241ce2ba2041bc56c69415dc7e9d48149f32e9576bda8d9dc79555d9b995(), "File contracts/royal_usdt.tact:69:9:");
+    slice $recipient = $msg'recipient;
+    int $amount = $global_min($msg'amount, (($global_myBalance() - $Context$_get_value(__tact_context_get())) - 10000000));
+    throw_unless(54615, ($amount > 0));
+    $global_send($SendParameters$_constructor_to_bounce_value_mode(__tact_context_get_sender(), true, $amount, 66));
+    $global_emit($TransferEvent$_store_cell($TransferEvent$_constructor_amount_recipient($amount, $recipient)));
+    return (($self'adminAddress, $self'arr, $self'arrLength, $self'arrStart), ());
+}
+
+(((slice, cell, int, int)), ()) $RoyalUsdt$_internal_binary_Deploy((slice, cell, int, int) $self, (int) $deploy) impure inline {
+    var ($self'adminAddress, $self'arr, $self'arrLength, $self'arrStart) = $self;
+    var ($deploy'queryId) = $deploy;
+    ($self'adminAddress, $self'arr, $self'arrLength, $self'arrStart)~$RoyalUsdt$_fun_notify($DeployOk$_store_cell($DeployOk$_constructor_queryId($deploy'queryId)));
+    return (($self'adminAddress, $self'arr, $self'arrLength, $self'arrStart), ());
+}
+
+;;
+;; Get methods of a Contract RoyalUsdt
+;;
+
+_ %contractBalance() method_id(110221) {
+    var self = $RoyalUsdt$_contract_load();
+    var res = self~$RoyalUsdt$_fun_contractBalance();
+    return res;
+}
+
+_ lazy_deployment_completed() method_id {
+    return get_data().begin_parse().load_int(1);
+}
+
+;;
+;; Routing of a Contract RoyalUsdt
+;;
+
+((slice, cell, int, int), int) $RoyalUsdt$_contract_router_internal((slice, cell, int, int) self, int msg_bounced, slice in_msg) impure inline_ref {
+    ;; Handle bounced messages
+    if (msg_bounced) {
+        return (self, true);
+    }
+    
+    ;; Parse incoming message
+    int op = 0;
+    if (slice_bits(in_msg) >= 32) {
+        op = in_msg.preload_uint(32);
+    }
+    
+    
+    ;; Receive empty message
+    if ((op == 0) & (slice_bits(in_msg) <= 32)) {
+        self~%$RoyalUsdt$_internal_empty();
+        return (self, true);
+    }
+    
+    ;; Receive BuySpin message
+    if (op == 3479065657) {
+        var msg = in_msg~$BuySpin$_load();
+        self~$RoyalUsdt$_internal_binary_BuySpin(msg);
+        return (self, true);
+    }
+    
+    ;; Receive ChangeAdmin message
+    if (op == 636739454) {
+        var msg = in_msg~$ChangeAdmin$_load();
+        self~$RoyalUsdt$_internal_binary_ChangeAdmin(msg);
+        return (self, true);
+    }
+    
+    ;; Receive ClaimWinnings message
+    if (op == 1012044212) {
+        var msg = in_msg~$ClaimWinnings$_load();
+        self~$RoyalUsdt$_internal_binary_ClaimWinnings(msg);
+        return (self, true);
+    }
+    
+    ;; Receive Withdraw message
+    if (op == 2856211534) {
+        var msg = in_msg~$Withdraw$_load();
+        self~$RoyalUsdt$_internal_binary_Withdraw(msg);
+        return (self, true);
+    }
+    
+    ;; Receive Deploy message
+    if (op == 2490013878) {
+        var msg = in_msg~$Deploy$_load();
+        self~$RoyalUsdt$_internal_binary_Deploy(msg);
+        return (self, true);
+    }
+    
+    return (self, false);
+}
+
+() recv_internal(int msg_value, cell in_msg_cell, slice in_msg) impure {
+    
+    ;; Context
+    var cs = in_msg_cell.begin_parse();
+    var msg_flags = cs~load_uint(4);
+    var msg_bounced = -(msg_flags & 1);
+    slice msg_sender_addr = __tact_verify_address(cs~load_msg_addr());
+    __tact_context = (msg_bounced, msg_sender_addr, msg_value, cs);
+    __tact_context_sender = msg_sender_addr;
+    
+    ;; Load contract data
+    var self = $RoyalUsdt$_contract_load();
+    
+    ;; Handle operation
+    int handled = self~$RoyalUsdt$_contract_router_internal(msg_bounced, in_msg);
+    
+    ;; Throw if not handled
+    throw_unless(130, handled);
+    
+    ;; Persist state
+    $RoyalUsdt$_contract_store(self);
+}

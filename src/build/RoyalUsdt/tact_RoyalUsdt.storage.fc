@@ -1,0 +1,209 @@
+;;
+;; Type: StateInit
+;; TLB: _ code:^cell data:^cell = StateInit
+;;
+
+((cell, cell)) $StateInit$_not_null(tuple v) inline {
+    throw_if(128, null?(v));
+    var (cell vvv'code, cell vvv'data) = __tact_tuple_destroy_2(v);
+    return (vvv'code, vvv'data);
+}
+
+;;
+;; Type: Context
+;; TLB: _ bounced:bool sender:address value:int257 raw:^slice = Context
+;;
+
+_ $Context$_get_value((int, slice, int, slice) v) inline {
+    var (v'bounced, v'sender, v'value, v'raw) = v;
+    return v'value;
+}
+
+;;
+;; Type: SendParameters
+;; TLB: _ bounce:bool to:address value:int257 mode:int257 body:Maybe ^cell code:Maybe ^cell data:Maybe ^cell = SendParameters
+;;
+
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_bounce_to_value_mode_body_code_data(int $bounce, slice $to, int $value, int $mode, cell $body, cell $code, cell $data) inline {
+    return ($bounce, $to, $value, $mode, $body, $code, $data);
+}
+
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_bounce_value_mode(slice $to, int $bounce, int $value, int $mode) inline {
+    return ($bounce, $to, $value, $mode, null(), null(), null());
+}
+
+;;
+;; Type: Deploy
+;; Header: 0x946a98b6
+;; TLB: deploy#946a98b6 queryId:uint64 = Deploy
+;;
+
+(slice, ((int))) $Deploy$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 2490013878);
+    var v'queryId = sc_0~load_uint(64);
+    return (sc_0, (v'queryId));
+}
+
+;;
+;; Type: DeployOk
+;; Header: 0xaff90f57
+;; TLB: deploy_ok#aff90f57 queryId:uint64 = DeployOk
+;;
+
+builder $DeployOk$_store(builder build_0, (int) v) inline {
+    var (v'queryId) = v;
+    build_0 = store_uint(build_0, 2952335191, 32);
+    build_0 = build_0.store_uint(v'queryId, 64);
+    return build_0;
+}
+
+cell $DeployOk$_store_cell((int) v) inline {
+    return $DeployOk$_store(begin_cell(), v).end_cell();
+}
+
+((int)) $DeployOk$_constructor_queryId(int $queryId) inline {
+    return ($queryId);
+}
+
+;;
+;; Type: BuySpin
+;; Header: 0xcf5e5439
+;; TLB: buy_spin#cf5e5439 amount:coins = BuySpin
+;;
+
+(slice, ((int))) $BuySpin$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 3479065657);
+    var v'amount = sc_0~load_coins();
+    return (sc_0, (v'amount));
+}
+
+;;
+;; Type: ChangeAdmin
+;; Header: 0x25f3df7e
+;; TLB: change_admin#25f3df7e newOwner:address = ChangeAdmin
+;;
+
+(slice, ((slice))) $ChangeAdmin$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 636739454);
+    var v'newOwner = sc_0~__tact_load_address();
+    return (sc_0, (v'newOwner));
+}
+
+;;
+;; Type: ClaimWinnings
+;; Header: 0x3c5291b4
+;; TLB: claim_winnings#3c5291b4 amount:coins to:address = ClaimWinnings
+;;
+
+(slice, ((int, slice))) $ClaimWinnings$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 1012044212);
+    var v'amount = sc_0~load_coins();
+    var v'to = sc_0~__tact_load_address();
+    return (sc_0, (v'amount, v'to));
+}
+
+;;
+;; Type: Withdraw
+;; Header: 0xaa3e544e
+;; TLB: withdraw#aa3e544e amount:coins recipient:address = Withdraw
+;;
+
+(slice, ((int, slice))) $Withdraw$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 2856211534);
+    var v'amount = sc_0~load_coins();
+    var v'recipient = sc_0~__tact_load_address();
+    return (sc_0, (v'amount, v'recipient));
+}
+
+;;
+;; Type: TransferEvent
+;; Header: 0x2e0f251b
+;; TLB: transfer_event#2e0f251b amount:coins recipient:address = TransferEvent
+;;
+
+builder $TransferEvent$_store(builder build_0, (int, slice) v) inline {
+    var (v'amount, v'recipient) = v;
+    build_0 = store_uint(build_0, 772744475, 32);
+    build_0 = build_0.store_coins(v'amount);
+    build_0 = __tact_store_address(build_0, v'recipient);
+    return build_0;
+}
+
+cell $TransferEvent$_store_cell((int, slice) v) inline {
+    return $TransferEvent$_store(begin_cell(), v).end_cell();
+}
+
+((int, slice)) $TransferEvent$_constructor_amount_recipient(int $amount, slice $recipient) inline {
+    return ($amount, $recipient);
+}
+
+;;
+;; Type: SpinBuyEvent
+;; Header: 0x93e16d80
+;; TLB: spin_buy_event#93e16d80 amount:coins sender:address = SpinBuyEvent
+;;
+
+builder $SpinBuyEvent$_store(builder build_0, (int, slice) v) inline {
+    var (v'amount, v'sender) = v;
+    build_0 = store_uint(build_0, 2481024384, 32);
+    build_0 = build_0.store_coins(v'amount);
+    build_0 = __tact_store_address(build_0, v'sender);
+    return build_0;
+}
+
+cell $SpinBuyEvent$_store_cell((int, slice) v) inline {
+    return $SpinBuyEvent$_store(begin_cell(), v).end_cell();
+}
+
+((int, slice)) $SpinBuyEvent$_constructor_amount_sender(int $amount, slice $sender) inline {
+    return ($amount, $sender);
+}
+
+;;
+;; Type: RoyalUsdt
+;;
+
+builder $RoyalUsdt$_store(builder build_0, (slice, cell, int, int) v) inline {
+    var (v'adminAddress, v'arr, v'arrLength, v'arrStart) = v;
+    build_0 = __tact_store_address(build_0, v'adminAddress);
+    build_0 = build_0.store_dict(v'arr);
+    build_0 = build_0.store_uint(v'arrLength, 8);
+    build_0 = build_0.store_uint(v'arrStart, 8);
+    return build_0;
+}
+
+(slice, ((slice, cell, int, int))) $RoyalUsdt$_load(slice sc_0) inline {
+    var v'adminAddress = sc_0~__tact_load_address();
+    var v'arr = sc_0~load_dict();
+    var v'arrLength = sc_0~load_uint(8);
+    var v'arrStart = sc_0~load_uint(8);
+    return (sc_0, (v'adminAddress, v'arr, v'arrLength, v'arrStart));
+}
+
+(slice, ((slice))) $RoyalUsdt$init$_load(slice sc_0) inline {
+    var v'admin = sc_0~__tact_load_address();
+    return (sc_0, (v'admin));
+}
+
+(slice, cell, int, int) $RoyalUsdt$_contract_load() impure inline_ref {
+    slice $sc = get_data().begin_parse();
+    __tact_context_sys = $sc~load_ref();
+    int $loaded = $sc~load_int(1);
+    if ($loaded) {
+        return $sc~$RoyalUsdt$_load();
+    } else {
+        ;; Allow only workchain deployments
+        throw_unless(137, my_address().preload_uint(11) == 1024);
+        (slice $admin) = $sc~$RoyalUsdt$init$_load();
+        $sc.end_parse();
+        return $RoyalUsdt$_contract_init($admin);
+    }
+}
+
+() $RoyalUsdt$_contract_store((slice, cell, int, int) v) impure inline {
+    builder b = begin_cell();
+    b = b.store_ref(__tact_context_sys);
+    b = b.store_int(true, 1);
+    b = $RoyalUsdt$_store(b, v);
+    set_data(b.end_cell());
+}
