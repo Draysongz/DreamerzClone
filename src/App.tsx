@@ -23,21 +23,17 @@ function App() {
   // Effect to set Telegram init data
   useEffect(() => {
     const initData = WebApp.initData;
-    const photo_url = WebApp.initDataUnsafe.user!.photo_url!
-    if(photo_url){
+    const photo_url = WebApp.initDataUnsafe.user!.photo_url!.toString()!
       setPhotoUrl(photo_url)
-    }
     setTelegramInitData(initData);
   }, []);
 
 
 
   // Call the login function when telegramInitData is available
-  useEffect(() => {
-    if (telegramInitData ) {
+ if (telegramInitData ) {
       login(telegramInitData, photoUrl);
-    }
-  }, [telegramInitData, login]);
+}
 
   if (!user) {
     return <div>Loading...</div>; // Better loading indication
