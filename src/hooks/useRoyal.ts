@@ -9,7 +9,7 @@ const sleep = (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
-export function useTonSpinner() {
+export function useRoyal() {
   const { sender, userAddress } = useTonConnect();
   const { client } = useTonClient();
 
@@ -41,13 +41,14 @@ export function useTonSpinner() {
       );
     },
 
-    Deposit: async (amount: string) => {
+    Deposit: async (amount: number) => {
       const contractBalanceBefore = await RoyalContract?.getContractBalance();
       console.log(contractBalanceBefore);
+      const finalAmount = amount + 0.05
       RoyalContract?.send(
         sender,
         {
-          value: toNano("1.02"),
+          value: toNano(finalAmount.toString()),
         },
         {
             $$type: "BuySpin",

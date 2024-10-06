@@ -3,6 +3,7 @@ import { Box, Button, Text, VStack, HStack, useToast } from "@chakra-ui/react";
 import { Wheel } from "react-custom-roulette";
 import { motion, AnimatePresence } from "framer-motion";
 import Leaderboard from "./leaderboard";
+import { useRoyal } from "../hooks/useRoyal";
 
 interface Score {
   player: string;
@@ -21,6 +22,8 @@ const SpinnerWheel: React.FC = () => {
   const [showWinAnimation, setShowWinAnimation] = useState<boolean>(false);
   const [leaderboardScores, setLeaderboardScores] = useState<Score[]>([]);
   const toast = useToast();
+
+  const {Deposit} = useRoyal()
 
   const data = [
     { option: "0.5x", style: { backgroundColor: "#FF6B6B", textColor: "white" } },
@@ -106,8 +109,9 @@ const SpinnerWheel: React.FC = () => {
     }
   };
 
-  const handlePayment = (amount: number) => {
-    setStakeAmount(amount);
+  const handlePayment = async (amount: number) => {
+    const deposit = await Deposit(amount)
+    setStakeAmount(1);
     setSpinsLeft(1); // Grant one spin per payment
     setTotalWinnings(0); // Reset winnings for the new round
   };
@@ -140,7 +144,7 @@ const SpinnerWheel: React.FC = () => {
 
       {!stakeAmount && (
         <HStack spacing={4}>
-          <Button colorScheme="blue" onClick={() => handlePayment(10)}>
+          <Button colorScheme="blue" onClick={() => handlePayment(1)}>
             Pay $10 to Play
           </Button>
           <Button colorScheme="blue" onClick={() => handlePayment(20)}>
