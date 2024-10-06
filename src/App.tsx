@@ -30,11 +30,7 @@ function App() {
     setTelegramInitData(initData);
   }, []);
 
-  useEffect(()=>{
-    if(user){
-      alert(user)
-    }
-  }, [user])
+
 
   // Call the login function when telegramInitData is available
   useEffect(() => {
