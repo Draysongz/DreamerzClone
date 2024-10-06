@@ -16,7 +16,7 @@ interface AuthContextType {
   user: User | null;
   token: string | null;
   loading: boolean;
-  login: (telegramInitData: string, photoUrl: string, referralId?: string) => Promise<void>;
+  login: (telegramInitData: string, referralId?: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -45,12 +45,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }, []);
 
   // Function to login and store the JWT token
-  const login = async (telegramInitData: string, photoUrl: string, referralId?: string,) => {
+  const login = async (telegramInitData: string,  referralId?: string,) => {
     try {
       const response = await axios.post('https://c1a2-105-113-59-239.ngrok-free.app/api/auth', {
         initData: telegramInitData,
         referralId: referralId,
-        photoUrl: photoUrl
+        // photoUrl: photoUrl
       });
       const { token, user } = response.data;
 

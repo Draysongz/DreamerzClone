@@ -22,11 +22,14 @@ function App() {
 
   // Effect to set Telegram init data
   useEffect(() => {
+    WebApp.expand();
     const initData = WebApp.initData;
-    const photo_url = WebApp.initDataUnsafe.user!.photo_url!.toString()!
+    const photo_url = WebApp.initDataUnsafe.user?.photo_url!
       setPhotoUrl(photo_url)
     setTelegramInitData(initData);
   }, []);
+
+  alert(photoUrl)
 
 
 
