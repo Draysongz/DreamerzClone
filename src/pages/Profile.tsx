@@ -34,7 +34,11 @@ import { FaLeftLong } from "react-icons/fa6";
 import NavigationBar from "../components/NavigationBar";
 import { Link } from "react-router-dom"
 
-const Profile: React.FC = () => {
+interface profileProps{
+  userData: any
+}
+
+const Profile: React.FC<profileProps> = ({userData}) => {
   const [isHidden, setIsHidden] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [amount, setAmount] = useState(""); // State for amount input
@@ -44,7 +48,8 @@ const Profile: React.FC = () => {
   const {isOpen, onClose, onOpen} = useDisclosure()
 
   // const { isOpen: isSecondOpen, onOpen: onSecondOpen, onClose: onSecondClosed } = useDisclosure();
-  const playerID = "47368468239"; // Store PlayerID here
+  const playerID = "47368468239";
+  console.log(userData) // Store PlayerID here
 
   // Function to toggle the visibility of total assets and button text
   const toggleVisibility = () => {
@@ -105,7 +110,7 @@ const Profile: React.FC = () => {
             />
             <Box>
               <Text fontWeight={600} fontSize={{ base: "14px", sm: "20px" }}>
-                PlayerZorgon
+                {userData && userData.user.username}
               </Text>
               <Text
                 fontWeight={400}
@@ -121,7 +126,7 @@ const Profile: React.FC = () => {
                   fontSize={{ base: "12px", sm: "16px" }}
                   alignSelf={"center"}
                 >
-                  {playerID}
+                  {userData && userData.user.telegramId}
                 </Text>
               </Text>
             </Box>
@@ -143,7 +148,7 @@ const Profile: React.FC = () => {
                   display={"flex"}
                   gap={2}
                 >
-                  0.00
+                  {userData && userData.user.balance}
                   <Text
                     fontSize={"20px"}
                     fontWeight={200}

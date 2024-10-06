@@ -9,7 +9,7 @@ import Tournament from "./pages/Tournament";
 import Friends from "./pages/Friends";
 import Minigames from "./pages/Minigames";
 import Profile from "./pages/Profile";
-import { useAuth } from "./context/AuthContext";
+import { useUserLogin } from "./hooks/useAuth";
 import WebApp from "@twa-dev/sdk";
 import { useState, useEffect } from "react";
 
@@ -17,28 +17,32 @@ function App() {
   const [telegramInitData, setTelegramInitData] = useState<string>("");
   const [photoUrl, setPhotoUrl] = useState<string>("")
 
-  const { login, user } = useAuth();
-  // const telegramInitData ="query_id=AAElBO5_AAAAACUE7n-OXKaOuser=%7B%22id%22%3A2146305061%2C%22first_name%22%3A%22Crypto%22%2C%22last_name%22%3A%22Dray%22%2C%22username%22%3A%22Habibilord%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1728157663&hash=88abaf102c4ab57a7e55922b2cd25debd5361e81becf43e10e3625225a2c6345"
+ 
+  // const hash  = "query_id=AAElBO5_AAAAACUE7n9PiZPp&user=%7B%22id%22%3A2146305061%2C%22first_name%22%3A%22Crypto%22%2C%22last_name%22%3A%22Dray%22%2C%22username%22%3A%22Habibilord%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1728202077&hash=8bf1e3cd6f0f4fdda851de17b4ae1e697086bd662c4e5eccbafdcc15441719a3"
+
+  const {loading, userData} = useUserLogin(telegramInitData, photoUrl)
 
   // Effect to set Telegram init data
   useEffect(() => {
     WebApp.expand();
     const initData = WebApp.initData;
-    const photo_url = WebApp.initDataUnsafe.user?.photo_url!
-      setPhotoUrl(photo_url)
+    const unsafeInit = WebApp.initDataUnsafe
+      if (unsafeInit && unsafeInit.user && unsafeInit.user.photo_url) {
+      setPhotoUrl(unsafeInit.user.photo_url);
+    }
     setTelegramInitData(initData);
   }, []);
 
-  alert(photoUrl)
 
 
 
-  // Call the login function when telegramInitData is available
- if (telegramInitData ) {
-      login(telegramInitData, photoUrl);
-}
 
-  if (!user) {
+
+
+
+
+
+  if (loading) {
     return <div>Loading...</div>; // Better loading indication
   }
 
@@ -53,7 +57,7 @@ function App() {
             <Route path="/game/:gameType" element={<Game />} />
             <Route path="/tournament" element={<Tournament />}/>
             <Route path="/friends" element={<Friends />}/>
-            <Route path="/profile" element={<Profile />}/>
+            <Route path="/profile" element={<Profile userData={userData} />}/>
           </Routes>
         </Router>
     </Box>
