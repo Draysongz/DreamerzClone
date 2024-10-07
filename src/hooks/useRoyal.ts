@@ -5,9 +5,9 @@ import { useTonClient } from "./useTonClient";
 import { useTonConnect } from "./useTonConnect";
 // import { useEffect, useState } from "react";
 
-const sleep = (ms: number) => {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-};
+// const sleep = (ms: number) => {
+//   return new Promise((resolve) => setTimeout(resolve, ms));
+// };
 
 export function useRoyal() {
   const { sender, userAddress } = useTonConnect();
@@ -56,16 +56,6 @@ export function useRoyal() {
             amount:toNano(amount)
         }
       );
-
-      let BalanceAfter = await RoyalContract?.getContractBalance();
-      let attempt = 1;
-
-      while (contractBalanceBefore === BalanceAfter) {
-        console.log("Staking, attempt", attempt);
-        await sleep(2000);
-        BalanceAfter = await RoyalContract?.getContractBalance();
-        attempt++;
-      }
     },
 
 

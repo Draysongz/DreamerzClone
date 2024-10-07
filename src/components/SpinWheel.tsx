@@ -110,8 +110,14 @@ const SpinnerWheel: React.FC = () => {
   };
 
   const handlePayment = async (amount: number) => {
-    const deposit = await Deposit(amount)
-    console.log(deposit)
+     const dep = await Deposit(amount)
+     console.log(dep)
+     toast({
+      title: "Deposit successful",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+     })
     setStakeAmount(1);
     setSpinsLeft(1); // Grant one spin per payment
     setTotalWinnings(0); // Reset winnings for the new round
