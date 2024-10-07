@@ -11,8 +11,11 @@ const symbols = [
   '/slot/star.png',
   '/slot/diamond.png',
 ];
+interface profileProps{
+  userData: any
+}
 
-const SlotMachine: React.FC = () => {
+const SlotMachine: React.FC<profileProps> = ({userData}) => {
   const COOLDOWN_TIME = 1 * 60 * 1000; // 1 minute cooldown in milliseconds
 
   const [reels, setReels] = useState<string[][]>([[], [], []]);

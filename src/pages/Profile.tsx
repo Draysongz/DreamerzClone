@@ -155,7 +155,7 @@ const Profile: React.FC<profileProps> = ({userData}) => {
                     alignSelf={"flex-end"}
                     mb={4}
                   >
-                    USD
+                    TON
                   </Text>
                 </Text>
               ) : (

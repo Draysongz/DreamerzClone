@@ -4,7 +4,11 @@ import Header from "../components/Header";
 import Carousel from "../components/Carousel";
 import Gamelist from "../components/Gamelist";
 import { Link } from "react-router-dom";
-const HomePage: React.FC = () => {
+interface profileProps{
+  userData: any
+}
+
+const HomePage: React.FC<profileProps> = ({userData}) => {
   const slides = [
     <Box
       textAlign="center"
@@ -162,7 +166,7 @@ const HomePage: React.FC = () => {
         pb={32}
         gap={5}
       >
-        <Header />
+        <Header  userData={userData}/>
         <Box
           p={"10px"}
           border={"1px solid rgba(0, 0, 0, 0.3)"}

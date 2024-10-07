@@ -14,25 +14,26 @@ import WebApp from "@twa-dev/sdk";
 import { useState, useEffect } from "react";
 
 function App() {
-  const [telegramInitData, setTelegramInitData] = useState<string>("");
+  // const [telegramInitData, setTelegramInitData] = useState<string>("");
   const queryString = window.location.search; // Get the query string
   const urlParams = new URLSearchParams(queryString);
   const referralId = urlParams.get("referralCode")!
   
 
  
-  // const telegramInitData  = "query_id=AAElBO5_AAAAACUE7n9PiZPp&user=%7B%22id%22%3A2146305061%2C%22first_name%22%3A%22Crypto%22%2C%22last_name%22%3A%22Dray%22%2C%22username%22%3A%22Habibilord%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1728202077&hash=8bf1e3cd6f0f4fdda851de17b4ae1e697086bd662c4e5eccbafdcc15441719a3"
+  const telegramInitData  = "query_id=AAElBO5_AAAAACUE7n9PiZPp&user=%7B%22id%22%3A2146305061%2C%22first_name%22%3A%22Crypto%22%2C%22last_name%22%3A%22Dray%22%2C%22username%22%3A%22Habibilord%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1728202077&hash=8bf1e3cd6f0f4fdda851de17b4ae1e697086bd662c4e5eccbafdcc15441719a3"
 
 
 
   // Effect to set Telegram init data
-  useEffect(() => {
-    WebApp.expand();
-    const initData = WebApp.initData;
-    setTelegramInitData(initData);
-  }, []);
+  // useEffect(() => {
+  //   WebApp.expand();
+  //   const initData = WebApp.initData;
+  //   setTelegramInitData(initData);
+  // }, []);
 
   const {loading, userData} = useUserLogin(telegramInitData, referralId)
+  console.log("userdata from app.tx", userData)
 
 
 
@@ -50,12 +51,12 @@ function App() {
     <Box width={'100vw'} overflowX={'hidden'}>
       <Router>
           <Routes>
-            <Route index element={<HomePage />}  />
+            <Route index element={<HomePage userData={userData} />}  />
             <Route path="/gamelist" element={<Gamelist />}/>
-            <Route path="/minigames" element={<Minigames />}/>
-            <Route path="/game/:gameType" element={<Game />} />
-            <Route path="/tournament" element={<Tournament />}/>
-            <Route path="/friends" element={<Friends />}/>
+            <Route path="/minigames" element={<Minigames userData={userData}/>}/>
+            <Route path="/game/:gameType" element={<Game userData={userData} />} />
+            <Route path="/tournament" element={<Tournament userData={userData}/>}/>
+            <Route path="/friends" element={<Friends userData={userData}/>}/>
             <Route path="/profile" element={<Profile userData={userData} />}/>
           </Routes>
         </Router>

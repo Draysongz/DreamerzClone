@@ -2,7 +2,7 @@ import { Box, Flex, Text, Button} from "@chakra-ui/react";
 import Header from "../components/Header";
 import NavigationBar from "../components/NavigationBar";
 import Tables from "../components/Tables";
-export default function Friends() {
+export default function Friends({userData}: {userData: any}) {
     return(
         <Box
       display={"flex"}
@@ -22,7 +22,7 @@ export default function Friends() {
         pb={32}
         gap={5}
       >
-        <Header />
+        <Header userData={userData} />
         <Box display={"flex"} flexDirection={"column"} gap={5}>
           <Flex alignItems={"center"} justifyContent={"space-between"}>
             <Text fontWeight={900} fontSize={"32px"}>

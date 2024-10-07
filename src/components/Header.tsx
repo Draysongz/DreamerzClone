@@ -3,18 +3,40 @@ import {
   Flex,
   Text,
   Icon,
+  Image,
   // Image
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 // import star from '/star.png'
-import { BsCurrencyDollar } from "react-icons/bs";
+// import { BsCurrencyDollar } from "react-icons/bs";
 // import { GiWallet } from "react-icons/gi";
 // import { FaBell } from "react-icons/fa";
 import { HiUser } from "react-icons/hi2";
 import { TonConnectButton } from "@tonconnect/ui-react";
+import { useUserAPI } from "../hooks/useUserApi";
+import { useEffect, useState } from "react";
 // import { IoMdHelpCircle } from "react-icons/io";
 
-export default function Header() {
+
+export default function Header({userData}: {userData: any}) {
+  const [userDeets, setUserDeets] = useState<any>()
+  const {user} = useUserAPI(userData?.user.telegramId)
+  
+
+
+useEffect(() => {
+  if (userData) {
+    setUserDeets(userData.user);
+  }
+}, [userData]);
+
+useEffect(() => {
+  if (user) {
+    setUserDeets(user);
+  }
+}, [user]);
+
+
   return (
     <Box
       display={"flex"}
@@ -56,15 +78,9 @@ export default function Header() {
           p={{ base: "4px 7px", sm: "5px 10px" }}
           gap={1}
         >
-          <Icon
-            as={BsCurrencyDollar}
-            width={{ base: 4, sm: 10 }}
-            height={{ base: 4, sm: 10 }}
-            boxSize={{ base: 4, sm: 5 }}
-            borderRadius={"20px"}
-          />
+       <Image  src="/ton.png" width={{base: 5, sm: 10}} height={{base: 5, sm: 10}} borderRadius={'20px'} />
           <Text fontWeight={600} fontSize={{ base: "14px", sm: "16px" }}>
-            0.00
+            {userDeets && userDeets.balance}
           </Text>
         </Flex>
       </Box>

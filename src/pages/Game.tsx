@@ -6,7 +6,11 @@ import { useParams } from 'react-router-dom'
 import SpinnerWheel from '../components/SpinWheel';
 
 
-const Game: React.FC = () => {
+interface profileProps{
+  userData: any
+}
+
+const Game: React.FC<profileProps> = ({userData}) => {
   const { gameType } = useParams<{ gameType: string }>();
 
   return (
@@ -27,7 +31,7 @@ const Game: React.FC = () => {
         flexDirection={"column"}
         pb={32}
       >
-        <Header />
+        <Header userData={userData}/>
         <Box display={"flex"} flexDirection={"column"} gap={3}>
           <Flex alignItems={"center"} justifyContent={"space-between"} mt={5}>
             <Text fontWeight={900} fontSize={"32px"}>
@@ -35,8 +39,8 @@ const Game: React.FC = () => {
             </Text>
           </Flex>
           
-          {gameType === 'slotMachine' && <SlotMachine />}
-          {gameType === 'spinWheel' && <SpinnerWheel />}
+          {gameType === 'slotMachine' && <SlotMachine  userData={userData}/>}
+          {gameType === 'spinWheel' && <SpinnerWheel  userData={userData}/>}
           {(!gameType || (gameType !== 'slotMachine' && gameType !== 'spinWheel')) && (
         <p>Please select a valid game.</p>
       )}

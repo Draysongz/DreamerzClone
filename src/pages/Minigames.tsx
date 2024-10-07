@@ -4,9 +4,11 @@ import Header from "../components/Header";
 import NavigationBar from "../components/NavigationBar";
 import Gamelist from '../components/Gamelist';
 
+interface profileProps{
+  userData: any
+}
 
-
-const Minigames: React.FC = () => {
+const Minigames: React.FC<profileProps> = ({userData}) => {
 
 
   return (
@@ -27,7 +29,7 @@ const Minigames: React.FC = () => {
         flexDirection={"column"}
         pb={32}
       >
-        <Header />
+        <Header  userData={userData}/>
         <Box display={"flex"} flexDirection={"column"} gap={5}>
           <Flex alignItems={"center"} justifyContent={"space-between"} mt={10}>
             <Text fontWeight={900} fontSize={"32px"}>
