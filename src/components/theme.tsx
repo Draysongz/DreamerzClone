@@ -2,7 +2,7 @@
 import { extendTheme } from "@chakra-ui/react";
 
 const breakpoints = {
-  sm: "400px",  // Custom Small size (e.g., 480px)
+  sm: "390px",  // Custom Small size (e.g., 480px)
   md: "768px",  // Custom Medium size (e.g., 768px)
   lg: "992px",  // Custom Large size (e.g., 992px)
   xl: "1280px",  // Custom Extra Large size (e.g., 1280px)

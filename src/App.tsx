@@ -13,6 +13,7 @@ import { useUserLogin } from "./hooks/useAuth";
 import WebApp from "@twa-dev/sdk";
 import { useState, useEffect } from "react";
 import Admin from "./pages/Admin"
+import LoadingPage from "./pages/LoadingPage";
 
 function App() {
   // const [telegramInitData, setTelegramInitData] = useState<string>("");
@@ -44,7 +45,7 @@ function App() {
 
 
   if (loading) {
-    return <div>Loading...</div>; // Better loading indication
+    return <LoadingPage /> // Better loading indication
   }
 
   return (

@@ -39,7 +39,6 @@ export default function Tournament({userData}: {userData: any}) {
             <Icon as={PiSpinnerBallFill}/>
           </Text>
           <RegularTask />
-          {/* <Gamelist /> */}
         </Box>
       </Flex>
       <NavigationBar userData={userData} />

@@ -34,7 +34,7 @@ export default function RegularTask() {
         </Box>
         </Box>
         <Button bgColor={"blue.500"} color={"white"} _focus={{bg:"black"}} px={10}>
-          <a href="https://www.instagram.com/accounts/login">
+          <a href="https://www.instagram.com/xgamblesolutions/profilecard/?igsh=bTd5NjUwNTN4bDlu">
           Claim
           </a>
         </Button>
@@ -174,7 +174,7 @@ export default function RegularTask() {
         </Box>
         </Box>
         <Button bgColor={"blue.500"} color={"white"} px={10} _focus={{bg:"black"}}>
-          <a href="https://web.telegram.org">
+          <a href="https://t.me/spicycasinomain">
           Claim
           </a>
         </Button>
