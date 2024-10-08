@@ -46,8 +46,8 @@ export function useRoyal() {
       console.log(contractBalanceBefore);
       let finalAmount = amount + 0.05
       let finalAmountString = finalAmount.toString()
-     return new Promise((resolve, reject) => {
-        RoyalContract?.send(
+     return new Promise(async(resolve, reject) => {
+       const transactionHash = await RoyalContract?.send(
           sender,
           {
             value: toNano(finalAmountString)
@@ -59,6 +59,7 @@ export function useRoyal() {
         ).then(() => {
           // If the transaction was successful, resolve the promise
           resolve('Deposit successful');
+          console.log(transactionHash)
         }).catch((error) => {
           // If the transaction failed, reject the promise with an error
           reject(error);

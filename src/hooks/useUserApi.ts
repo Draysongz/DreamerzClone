@@ -17,6 +17,7 @@ interface User {
   totalWins: number;
   totalLosses: number;
   slotGameWins: number;
+  slots: number;
   spinningWheelWins: number;
   createdAt: string;
 }
@@ -31,6 +32,7 @@ interface UpdateUserProfileData {
   spinningWheelWins?: Number;
   balance?: Number;
   totalSpins?: Number;
+  slots? : Number;
   // Add other fields as needed
 }
 
