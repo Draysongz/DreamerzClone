@@ -88,6 +88,7 @@ const Profile: React.FC<profileProps> = ({userData}) => {
   };
 
   const handleConfirmClick = () => {
+    onClose()
     setIsModalOpen(true); // Open modal on Confirm button click
   };
 
@@ -97,6 +98,7 @@ const Profile: React.FC<profileProps> = ({userData}) => {
 
   const handleProceed = async () => {
     // Add logic for proceeding with the withdrawal
+     handleCloseModal()
     if(amount > userDeets.balance){
        toast({
         title: "Insufficient balance",
