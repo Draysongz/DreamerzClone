@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import userEventEmitter from "../utils/eventEmitter";
 
 // Define the shape of the user object (you can extend this as needed)
 interface User {
@@ -38,7 +39,9 @@ export const useUserAPI = (userId: string, token?: string) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  console.log("token", token)
+  useEffect(()=>{
+    userEventEmitter.emit('userUpdated', user);
+  }, [user])
 
   // Get user profile
   const fetchUserProfile = async () => {
@@ -74,6 +77,7 @@ export const useUserAPI = (userId: string, token?: string) => {
       );
       console.log("user gotten from userapi after updating", response.data);
       setUser(response.data);
+      
       setError(null);
     } catch (err) {
       setError("Failed to update user profile");

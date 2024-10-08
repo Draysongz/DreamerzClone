@@ -13,14 +13,14 @@ import { Link } from "react-router-dom";
 // import { FaBell } from "react-icons/fa";
 import { HiUser } from "react-icons/hi2";
 import { TonConnectButton } from "@tonconnect/ui-react";
-import { useUserAPI } from "../hooks/useUserApi";
 import { useEffect, useState } from "react";
 // import { IoMdHelpCircle } from "react-icons/io";
+import userEventEmitter from "../utils/eventEmitter";
 
 
 export default function Header({userData}: {userData: any}) {
   const [userDeets, setUserDeets] = useState<any>()
-  const {user} = useUserAPI(userData?.user.telegramId)
+
   
 
 
@@ -30,11 +30,22 @@ useEffect(() => {
   }
 }, [userData]);
 
-useEffect(() => {
-  if (user) {
-    setUserDeets(user);
-  }
-}, [user]);
+  useEffect(() => {
+    const handleUserUpdate = (updatedUser: any) => {
+      // Update the state with the latest user data
+      console.log(updatedUser)
+      setUserDeets(updatedUser);
+      console.log("User data updated:", updatedUser);
+    };
+
+    // Listen for the 'userUpdated' event
+    userEventEmitter.on("userUpdated", handleUserUpdate);
+
+    // Clean up the event listener when the component is unmounted
+    return () => {
+      userEventEmitter.off("userUpdated", handleUserUpdate);
+    };
+  }, []);
 
 
   return (

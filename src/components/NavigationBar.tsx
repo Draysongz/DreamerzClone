@@ -68,8 +68,8 @@ const NavigationBar: React.FC = () => {
                 icon={
                     <Icon as={PiCoinsFill} boxSize={8}/>
                 }
-                isActive={location.pathname === "/task"}
-                to="/task"
+                isActive={location.pathname === "/tasks"}
+                to="/tasks"
             />
             <NavItem
                 icon={

@@ -44,7 +44,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ scores }) => {
                 <Td color="white">{index + 1}</Td>
                 <Td color="white">{score.player}</Td>
                 <Td color="white" isNumeric>
-                  ${score.score}
+                  {score.score} TON
                 </Td>
               </Tr>
             ))}

@@ -25,13 +25,8 @@ export default function Tournament({userData}: {userData: any}) {
         pb={32}
         gap={5}
       >
-<<<<<<< HEAD:src/pages/Tournament.tsx
-        <Header userData={userData}/>
-        <Box display={"flex"} flexDirection={"column"} gap={5}>
-=======
-        <Header />
+        <Header  userData={userData}/>
         <Box display={"flex"} flexDirection={"column"} gap={1}>
->>>>>>> upstream/main:src/pages/Task.tsx
           <Flex alignItems={"center"} justifyContent={"space-between"}>
             <Text fontWeight={900} fontSize={"32px"}>
               Tasks
