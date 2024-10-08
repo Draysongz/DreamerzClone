@@ -17,6 +17,7 @@ interface profileProps{
 
 const SlotMachine: React.FC<profileProps> = ({userData}) => {
   const COOLDOWN_TIME = 1 * 60 * 1000; // 1 minute cooldown in milliseconds
+  console.log(userData)
 
   const [reels, setReels] = useState<string[][]>([[], [], []]);
   const [isSpinning, setIsSpinning] = useState<boolean>(false);
