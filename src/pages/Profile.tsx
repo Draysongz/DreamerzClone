@@ -81,7 +81,7 @@ const Profile: React.FC<profileProps> = ({userData}) => {
       width={"100vw"}
       minHeight={"100vh"}
       alignItems={"center"}
-      py={7}
+      py={2}
     >
       <Flex
         width={"95%"}

@@ -10,39 +10,7 @@ interface profileProps{
 
 const HomePage: React.FC<profileProps> = ({userData}) => {
   const slides = [
-    <Box
-      textAlign="center"
-      bg={"linear-gradient(rgba(128, 0, 128, 0.3), white)"}
-      width={"100%"}
-      p={"50px 10px"}
-    >
-      <Image
-        src="/tournamentIcon.png"
-        alt="Slide 1 Image"
-        width={24}
-        mx="auto"
-      />
 
-      <Text
-        display={"flex"}
-        justifyContent={"center"}
-        fontWeight={900}
-        fontSize={"21px"}
-        mt={5}
-      >
-        Free Tournament
-      </Text>
-
-      <Text fontSize={"16px"} fontWeight={700} mt={3}>
-        Play your way to the top of the league and earn prizes for free.
-      </Text>
-
-      <Link to="/tournament">
-        <Button mt={4} color={"purple"} bg={"rgba(128, 0, 128, 0.2)"}>
-          Play Now
-        </Button>
-      </Link>
-    </Box>,
     <Box
       textAlign="center"
       bg={"linear-gradient(rgba(128, 0, 128, 0.3), white)"}
@@ -63,49 +31,16 @@ const HomePage: React.FC<profileProps> = ({userData}) => {
         fontSize={"21px"}
         mt={5}
       >
-        Cool or what?
+        Got friends?
       </Text>
 
       <Text fontSize={"16px"} fontWeight={700} mt={3}>
-        Ready to face off the cool players in a friendly duel of champions ?
+        Refer 5 friends and Get a free Spin 
       </Text>
 
-      <Link to="/tournament">
+      <Link to="/friends">
         <Button mt={4} color={"green"} bg={"green.200"}>
-          Play for $1
-        </Button>
-      </Link>
-    </Box>,
-    <Box
-      textAlign="center"
-      bg={"linear-gradient(rgba(0, 0, 0, 0.3), white)"}
-      width={"100%"}
-      p={"50px 10px"}
-    >
-      <Image
-        src="/shield.png"
-        alt="Slide 1 Image"
-        width={24}
-        mx="auto"
-      />
-
-      <Text
-        display={"flex"}
-        justifyContent={"center"}
-        fontWeight={900}
-        fontSize={"21px"}
-        mt={5}
-      >
-        Ready for a Showdown?
-      </Text>
-
-      <Text fontSize={"16px"} fontWeight={700} mt={3}>
-        Play with the Dukes for a slot at the Top, Beware they ain't COLD 
-      </Text>
-
-      <Link to="/tournament">
-        <Button mt={4} color={"white"} bg={"black"}>
-          Play for $10
+          Refer now
         </Button>
       </Link>
     </Box>,
@@ -129,18 +64,16 @@ const HomePage: React.FC<profileProps> = ({userData}) => {
         fontSize={"21px"}
         mt={5}
       >
-        A Good Day to play Hard
+        Need free Spin?
       </Text>
 
       <Text fontSize={"16px"} fontWeight={700} mt={3}>
-        There is only one rule <b>
-        "Go Hard or Go Trying, You choose"   
-        </b>
+        Complete all tasks and earn free spin each
       </Text>
 
-      <Link to="/tournament">
+      <Link to="/task">
         <Button mt={4} color={"orange"} bg={"orange.200"}>
-          Play for $100
+          Earn now
         </Button>
       </Link>
     </Box>,
@@ -154,7 +87,7 @@ const HomePage: React.FC<profileProps> = ({userData}) => {
       width={"100vw"}
       minHeight={"100vh"}
       alignItems={"center"}
-      py={7}
+      py={2}
       >
       <Flex
         // bg={'url(/Social-casinos.jpg)'}

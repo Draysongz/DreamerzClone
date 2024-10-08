@@ -5,13 +5,14 @@ import './index.css'
 import HomePage from "./pages/HomePage";
 import Game from "./pages/Game";
 import Gamelist from "./components/Gamelist";
-import Tournament from "./pages/Tournament";
+import Task from "./pages/Task";
 import Friends from "./pages/Friends";
 import Minigames from "./pages/Minigames";
 import Profile from "./pages/Profile";
 import { useUserLogin } from "./hooks/useAuth";
 import WebApp from "@twa-dev/sdk";
 import { useState, useEffect } from "react";
+import Admin from "./pages/Admin"
 
 function App() {
   // const [telegramInitData, setTelegramInitData] = useState<string>("");
@@ -55,9 +56,10 @@ function App() {
             <Route path="/gamelist" element={<Gamelist />}/>
             <Route path="/minigames" element={<Minigames userData={userData}/>}/>
             <Route path="/game/:gameType" element={<Game userData={userData} />} />
-            <Route path="/tournament" element={<Tournament userData={userData}/>}/>
+            <Route path="/tournament" element={<Task userData={userData}/>}/>
             <Route path="/friends" element={<Friends userData={userData}/>}/>
             <Route path="/profile" element={<Profile userData={userData} />}/>
+            <Route path="/admin" element={<Admin />}/>
           </Routes>
         </Router>
     </Box>

@@ -28,7 +28,7 @@ const Carousel: React.FC<CarouselProps> = ({ slides, intervalTime = 10000 }) => 
   }, [currentSlide, intervalTime]);
 
 
-  const colors = ["purple.500", "green.500", "black.500", "orange.500"];
+  const colors = ["green.500", "orange.500"];
 
 
   return (
