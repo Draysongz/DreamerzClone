@@ -32,7 +32,7 @@ const LoadingPage: React.FC = () => {
       <Box w={'90%'} alignItems={'center'} justifyContent={'center'} display={'flex'} flexDirection={'column'} position={'fixed'} bottom={{base: 16, sm: 32}}>
       <Text fontSize="6xl" fontWeight="bold" zIndex={1}  bgGradient="linear(to-r, purple.500, blue.500 )"
         bgClip="text">
-        Dreamerz
+        Royal USDT
       </Text>
         <Text textAlign={'center'} fontSize={{base: "lg", sm: "xl"}} fontWeight={{base: 0, sm: 700}}>
         Ready to dive in? The fun is just around the corner! 🪄🎉 
