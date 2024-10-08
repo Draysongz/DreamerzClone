@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Flex,
@@ -28,17 +28,35 @@ import {
   Tr,
   Th,
   Td,
+  useToast,
 } from "@chakra-ui/react";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { GiReceiveMoney } from "react-icons/gi";
 import NavigationBar from "../components/NavigationBar";
+import { useRoyal } from "../hooks/useRoyal";
 
-const Admin: React.FC = () => {
+interface profileProps {
+  userData: any;
+}
+
+const Admin: React.FC<profileProps> = ({userData}) => {
   const [isHidden, setIsHidden] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [amount, setAmount] = useState(""); // State for amount input
   const [wallet, setWallet] = useState(""); // State for wallet input
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const [contractBal, setContractBal] = useState<number>(0)
+
+  const {contractBalance, Withdraw} = useRoyal()
+  const toast = useToast()
+
+  useEffect(()=>{
+   if(contractBalance){
+     console.log("contract bal", contractBalance)
+    setContractBal(parseFloat(contractBalance))
+   }
+  }, [contractBalance])
+
 
   const toggleVisibility = () => {
     setIsHidden((prev) => !prev);
@@ -52,7 +70,28 @@ const Admin: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  const handleProceed = () => {
+  const handleProceed = async () => {
+     if(parseFloat(amount) > contractBal){
+       toast({
+        title: "Insufficient balance",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    const updatedAmount = parseFloat(amount)
+    const withdrawTx = await Withdraw(updatedAmount)
+    console.log(withdrawTx)
+
+     toast({
+        title: "Withdrawal successful",
+        description: `Your withdrawal of ${amount} Ton has been submitted and being processed`,
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
     setIsModalOpen(false);
     onClose();
   };
@@ -94,9 +133,9 @@ const Admin: React.FC = () => {
               <Text fontSize={"18px"}> Assets Accumulated</Text>
               {!isHidden ? (
                 <Text fontSize={"52px"} fontWeight={700} display={"flex"} gap={2}>
-                  0.00
+                  {contractBal.toFixed(2)}
                   <Text fontSize={"20px"} fontWeight={200} alignSelf={"flex-end"} mb={4}>
-                    USD
+                    TON
                   </Text>
                 </Text>
               ) : (
@@ -178,7 +217,7 @@ const Admin: React.FC = () => {
         </Box>
       </Flex>
 
-      <NavigationBar />
+      <NavigationBar userData={userData}  />
 
       {/* Withdrawal Drawer */}
       <Drawer isOpen={isOpen} placement="bottom" onClose={onClose}>

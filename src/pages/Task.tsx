@@ -42,7 +42,7 @@ export default function Tournament({userData}: {userData: any}) {
           {/* <Gamelist /> */}
         </Box>
       </Flex>
-      <NavigationBar />
+      <NavigationBar userData={userData} />
     </Box>
   );
 }

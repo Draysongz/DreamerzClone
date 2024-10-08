@@ -59,7 +59,7 @@ function App() {
             <Route path="/tasks" element={<Task userData={userData}/>}/>
             <Route path="/friends" element={<Friends userData={userData}/>}/>
             <Route path="/profile" element={<Profile userData={userData} />}/>
-            <Route path="/admin" element={<Admin />}/>
+            <Route path="/admin" element={<Admin userData={userData} />}/>
           </Routes>
         </Router>
     </Box>

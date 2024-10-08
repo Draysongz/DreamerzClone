@@ -121,7 +121,7 @@ const HomePage: React.FC<profileProps> = ({userData}) => {
           <Gamelist />
         </Box>
       </Flex>
-      <NavigationBar />
+      <NavigationBar userData={userData} />
     </Box>
   );
 };

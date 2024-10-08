@@ -93,7 +93,7 @@ export default function Friends({userData}: {userData: any}) {
             <Tables />
         </Box>
       </Flex>
-      <NavigationBar />
+      <NavigationBar userData={userData}/>
     </Box>
     )
 }

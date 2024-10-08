@@ -1,8 +1,9 @@
-import { Address, OpenedContract,  toNano } from "@ton/core";
+import { Address, fromNano, OpenedContract,  toNano } from "@ton/core";
 import { RoyalUsdt } from "../wrappers/RoyalUsdt";
 import { useAsyncInitialze } from "./useAsyncInitialize";
 import { useTonClient } from "./useTonClient";
 import { useTonConnect } from "./useTonConnect";
+import { useEffect, useState } from "react";
 // import { useEffect, useState } from "react";
 
 // const sleep = (ms: number) => {
@@ -12,6 +13,7 @@ import { useTonConnect } from "./useTonConnect";
 export function useRoyal() {
   const { sender, userAddress } = useTonConnect();
   const { client } = useTonClient();
+  const [contractBalance, setContractBalance]= useState("")
 
   const RoyalContract = useAsyncInitialze(async () => {
     if (!client) return;
@@ -24,21 +26,53 @@ export function useRoyal() {
   }, [client]);
 
 
+  useEffect(() => {
+    const getBalance = async () => {
+      if (!RoyalContract) return; // Ensure the contract is initialized before fetching
+
+      try {
+        const contractBalanceBefore = await RoyalContract.getContractBalance();
+        if (contractBalanceBefore) {
+          const updatedBalance = fromNano(contractBalanceBefore);
+          setContractBalance(updatedBalance);
+          console.log("Updated contract balance:", updatedBalance);
+        }
+      } catch (error) {
+        console.error("Error fetching contract balance:", error);
+      }
+    };
+
+    getBalance();
+  }, [RoyalContract]);
 
  
   return {
-    Claim: async (amount: string) => {
-      RoyalContract?.send(
-        sender,
-        {
-          value: toNano("0.05"),
-        },
-        {
+    Claim: async (amount: number, address: string) => {
+     const contractBalanceBefore = await RoyalContract?.getContractBalance();
+      console.log(contractBalanceBefore);
+      let finalAmount = amount 
+      let finalAmountString = finalAmount.toString()
+     return new Promise(async(resolve, reject) => {
+       const transactionHash = await RoyalContract?.send(
+          sender,
+          {
+            value: toNano("0.05")
+          },
+          {
             $$type: "ClaimWinnings",
-            amount: toNano(amount),
-            to: Address.parse(userAddress)
-        }
-      );
+            to: Address.parse(address),
+            amount: toNano(finalAmountString)
+
+          }
+        ).then(() => {
+          // If the transaction was successful, resolve the promise
+          resolve('Withdraw successful');
+          console.log(transactionHash)
+        }).catch((error) => {
+          // If the transaction failed, reject the promise with an error
+          reject(error);
+        });
+      });
     },
 
     Deposit: async (amount: number) => {
@@ -67,6 +101,35 @@ export function useRoyal() {
       });
 
     },
+
+    Withdraw: async(amount: number)=>{
+      const contractBalanceBefore = await RoyalContract?.getContractBalance();
+      console.log(contractBalanceBefore);
+      let finalAmount = amount 
+      let finalAmountString = finalAmount.toString()
+     return new Promise(async(resolve, reject) => {
+       const transactionHash = await RoyalContract?.send(
+          sender,
+          {
+            value: toNano("0.05")
+          },
+          {
+            $$type: "Withdraw",
+            recipient: Address.parse(userAddress),
+            amount: toNano(finalAmountString)
+
+          }
+        ).then(() => {
+          // If the transaction was successful, resolve the promise
+          resolve('Withdraw successful');
+          console.log(transactionHash)
+        }).catch((error) => {
+          // If the transaction failed, reject the promise with an error
+          reject(error);
+        });
+      });
+    },
+    contractBalance
 
 
 

@@ -58,7 +58,6 @@ const SlotMachine: React.FC<profileProps> = ({ userData }) => {
   const [isSpinning, setIsSpinning] = useState<boolean>(false);
   const [stake, setStake] = useState<number>(0); // Amount paid to play
   const [userPoints, setUserPoints] = useState<number>(0); // User's total points
-  const [hasPaid, setHasPaid] = useState<boolean>(false); // Track if user has paid
   const [userDeets, setUserDeets] = useState<any>(null);
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -77,6 +76,7 @@ const SlotMachine: React.FC<profileProps> = ({ userData }) => {
   }, [userData]);
 
   const handlePayment = async (amount: number) => {
+    console.log("amount to pay", amount);
     onClose()
     if (!connected) {
       toast({
@@ -87,15 +87,15 @@ const SlotMachine: React.FC<profileProps> = ({ userData }) => {
       });
       return;
     }
-
     try {
       const dep = await Deposit(amount);
-      console.log("amount to pay", amount);
+      console.log("amount to pay", dep);
 
       
 
       // Calculate the number of spins based on the deposited amount.
-      const spinsAwarded = Math.floor(amount); // Assuming 1 ton = 1 spin.
+      const spinsAwarded = amount; // Assuming 1 ton = 1 spin.
+      console.log("spin awarded", amount)
 
       // Update the user's total spins.
       await updateUserProfile({
@@ -298,7 +298,7 @@ const updateData: UpdateUserProfileData = {
             </Button>
             <Button
               colorScheme="green"
-              onClick={() => handlePayment(userPoints)}
+              onClick={() => handlePayment(stake)}
             >
               Confirm
             </Button>

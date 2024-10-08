@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Flex,
@@ -22,6 +22,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  useToast,
 } from "@chakra-ui/react";
 import { HiUser } from "react-icons/hi2";
 import { GiReceiveMoney, 
@@ -33,6 +34,9 @@ import { FaLeftLong } from "react-icons/fa6";
 // import { SiConvertio } from "react-icons/si";
 import NavigationBar from "../components/NavigationBar";
 import { Link } from "react-router-dom"
+import { useRoyal } from "../hooks/useRoyal";
+import userEventEmitter from "../utils/eventEmitter";
+import { useUserAPI } from "../hooks/useUserApi";
 
 interface profileProps{
   userData: any
@@ -43,12 +47,39 @@ const Profile: React.FC<profileProps> = ({userData}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [amount, setAmount] = useState(""); // State for amount input
   const [wallet, setWallet] = useState(""); // State for wallet input
-  const [userID, setUserID] = useState(""); // State for UserID input
+  const toast = useToast()
+  const [userDeets, setUserDeets] = useState<any>()
+
+  const {updateUserProfile} = useUserAPI(userData?.user.telegramId)
+
+ useEffect(() => {
+  if (userData) {
+    setUserDeets(userData.user);
+  }
+}, [userData]);
+
+  useEffect(() => {
+    const handleUserUpdate = (updatedUser: any) => {
+      // Update the state with the latest user data
+      console.log(updatedUser)
+      setUserDeets(updatedUser);
+      console.log("User data updated:", updatedUser);
+    };
+
+    // Listen for the 'userUpdated' event
+    userEventEmitter.on("userUpdated", handleUserUpdate);
+
+    // Clean up the event listener when the component is unmounted
+    return () => {
+      userEventEmitter.off("userUpdated", handleUserUpdate);
+    };
+  }, []);
+
 
   const {isOpen, onClose, onOpen} = useDisclosure()
-
+  const {Claim} = useRoyal()
   // const { isOpen: isSecondOpen, onOpen: onSecondOpen, onClose: onSecondClosed } = useDisclosure();
-  const playerID = "47368468239";
+
   console.log(userData) // Store PlayerID here
 
   // Function to toggle the visibility of total assets and button text
@@ -64,14 +95,38 @@ const Profile: React.FC<profileProps> = ({userData}) => {
     setIsModalOpen(false); // Close modal when "No" is clicked
   };
 
-  const handleProceed = () => {
+  const handleProceed = async () => {
     // Add logic for proceeding with the withdrawal
+    if(amount > userDeets.balance){
+       toast({
+        title: "Insufficient balance",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+    const updatedAmount = parseFloat(amount)
+    const claimTx = await Claim(updatedAmount, wallet)
+    console.log(claimTx)
+    const updatedBalance = userDeets.balance - updatedAmount
+    console.log("updating balance, new balance :", updatedBalance)
+    await updateUserProfile({
+      balance: updatedBalance
+    })
+    toast({
+        title: "Withdrawal successful",
+        description: `Your withdrawal of ${amount} Ton has been submitted and being processed`,
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
     setIsModalOpen(false);
     onClose(); // Close drawer after proceeding
   };
 
   // Check if inputs are valid
-  const isConfirmButtonDisabled = !userID || userID !== playerID || !amount || !wallet;
+  const isConfirmButtonDisabled = amount === "" || wallet === ""
 
   return (
     <Box
@@ -110,7 +165,7 @@ const Profile: React.FC<profileProps> = ({userData}) => {
             />
             <Box>
               <Text fontWeight={600} fontSize={{ base: "14px", sm: "20px" }}>
-                {userData && userData.user.username}
+                {userDeets && userDeets.username}
               </Text>
               <Text
                 fontWeight={400}
@@ -126,7 +181,7 @@ const Profile: React.FC<profileProps> = ({userData}) => {
                   fontSize={{ base: "12px", sm: "16px" }}
                   alignSelf={"center"}
                 >
-                  {userData && userData.user.telegramId}
+                  {userDeets && userDeets.telegramId}
                 </Text>
               </Text>
             </Box>
@@ -148,7 +203,7 @@ const Profile: React.FC<profileProps> = ({userData}) => {
                   display={"flex"}
                   gap={2}
                 >
-                  {userData && userData.user.balance}
+                  {userDeets && userDeets.balance}
                   <Text
                     fontSize={"20px"}
                     fontWeight={200}
@@ -258,7 +313,7 @@ const Profile: React.FC<profileProps> = ({userData}) => {
           </Box>
         </Box>
       </Flex>
-      <NavigationBar />
+      <NavigationBar userData={userData}/>
       {/* Withdrawal Drawer */}
       <Drawer isOpen={isOpen} placement="bottom" onClose={onClose}>
         <DrawerOverlay />
@@ -268,16 +323,6 @@ const Profile: React.FC<profileProps> = ({userData}) => {
 
           <DrawerBody>
             <Box display={'flex'} flexDirection={'column'} gap={5}>
-              <Box>
-                <FormLabel htmlFor="userID">Input UserID</FormLabel>
-                <Input 
-                  id="userID" 
-                  placeholder="Type here..." 
-                  value={userID} 
-                  onChange={(e) => setUserID(e.target.value)} // Update UserID input value
-                  required // Mark as required
-                />
-              </Box>
               <Box>
                 <FormLabel htmlFor="wallet">Input Wallet Address</FormLabel>
                 <Input

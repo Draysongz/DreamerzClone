@@ -47,7 +47,7 @@ const Game: React.FC<profileProps> = ({userData}) => {
 
         </Box>
       </Flex>
-      <NavigationBar />
+      <NavigationBar userData={userData} />
     </Box>
   );
 }
