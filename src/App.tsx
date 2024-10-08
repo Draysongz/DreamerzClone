@@ -20,6 +20,7 @@ function App() {
   const queryString = window.location.search; // Get the query string
   const urlParams = new URLSearchParams(queryString);
   const referralId = urlParams.get("referralCode")!
+
   
 
  

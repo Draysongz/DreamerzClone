@@ -2,7 +2,32 @@ import { Box, Flex, Text, Button} from "@chakra-ui/react";
 import Header from "../components/Header";
 import NavigationBar from "../components/NavigationBar";
 import Tables from "../components/Tables";
+import { useEffect, useState } from "react";
+import { useUserAPI } from "../hooks/useUserApi";
 export default function Friends({userData}: {userData: any}) {
+const [referredUser, setReferredUsers] = useState<any[]>([]);
+
+  const {fetchRefferals} = useUserAPI(userData?.user?.telegramId,
+    userData?.token)
+
+  useEffect(()=>{
+    const fetchRef = async ()=>{
+      const refUsers = await fetchRefferals()
+      console.log("ref ujsers from ref page", refUsers)
+       setReferredUsers(refUsers.referredUsers || [])
+    }
+
+    if(userData){
+      fetchRef()
+    }
+  }, [userData])
+
+
+  const copyRefLink = async()=>{
+    await navigator.clipboard.writeText(`https://t.me/RoyalUsdt_bot?start=${userData?.user.telegramId}`)
+  }
+
+
     return(
         <Box
       display={"flex"}
@@ -63,7 +88,7 @@ export default function Friends({userData}: {userData: any}) {
                     fontSize={'14px'}
                     fontWeight={700}
                     bg={'rgba(255, 215, 0, 0.1)'}
-                    color={'rgb(225, 215, 0.8)'}>
+                    color={'rgb(225, 215, 0.8)'} onClick={copyRefLink}>
                         Copy referral link
                     </Button>
                     <Button
@@ -87,10 +112,10 @@ export default function Friends({userData}: {userData: any}) {
                 borderRadius={'5px'}
                 fontWeight={300}
                 fontSize={'16px'}>
-                    0
+                    {userData && userData.user.referralCount}
                 </Text>
             </Text>
-            <Tables />
+            <Tables referrals={referredUser} />
         </Box>
       </Flex>
       <NavigationBar userData={userData}/>

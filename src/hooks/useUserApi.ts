@@ -129,6 +129,32 @@ export const useUserAPI = (userId: string, token?: string) => {
     }
   };
 
+ const fetchRefferals = async () => {
+  setLoading(true);
+  try {
+    const response = await axios.get<any>(
+      `https://c1a2-105-113-59-239.ngrok-free.app/api/users/${userId}`, // API URL with userId for fetching referrals
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          "ngrok-skip-browser-warning": true,
+          'Authorization': `Bearer ${token}`, // Use token for authorization if required
+        },
+      }
+    );
+    
+    setError(null);
+    console.log(response.data)
+    return response.data; // Return the list of referred users
+  } catch (err) {
+    setError("Failed to fetch referrals");
+    return [];
+  } finally {
+    setLoading(false);
+  }
+};
+
+
   return {
     user,
     loading,
@@ -137,5 +163,6 @@ export const useUserAPI = (userId: string, token?: string) => {
     updateUserProfile,
     updateUserBalance,
     fetchAllUsers,
+    fetchRefferals
   };
 };

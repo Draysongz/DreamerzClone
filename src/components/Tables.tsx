@@ -11,7 +11,7 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 
-export default function Tables() {
+export default function Tables({referrals}: {referrals: any}) {
   return (
     <Box>
       <TableContainer> 
@@ -21,25 +21,20 @@ export default function Tables() {
             <Tr>
               <Th>Name</Th>
               <Th>Winnings</Th>
-              <Th isNumeric>Referral Earnings</Th>
+              <Th isNumeric>Total Wins</Th>
             </Tr>
           </Thead>
           <Tbody>
-            <Tr>
-              <Td></Td>
-              <Td></Td>
-              <Td isNumeric></Td>
+         {referrals && referrals.map((referral: any, index: any)=>{
+          return(
+               <Tr key={index}>
+              <Td>{referral.username}</Td>
+              <Td>{referral.balance}</Td>
+              <Td isNumeric>{referral.totalWins}</Td>
             </Tr>
-            <Tr>
-              <Td></Td>
-              <Td></Td>
-              <Td isNumeric></Td>
-            </Tr>
-            <Tr>
-              <Td></Td>
-              <Td></Td>
-              <Td isNumeric></Td>
-            </Tr>
+          )
+         })}
+           
           </Tbody>
           <Tfoot>
             <Tr>
