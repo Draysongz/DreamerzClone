@@ -50,7 +50,7 @@ export const useUserAPI = (userId: string, token?: string) => {
     setLoading(true);
     try {
       const response = await axios.get<User>(
-        `https://9b0d-102-88-71-228.ngrok-free.app/api/profile/${userId}`,
+        `https://ffdf-13-40-87-81.ngrok-free.app/api/profile/${userId}`,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ export const useUserAPI = (userId: string, token?: string) => {
     setLoading(true);
     try {
       const response = await axios.put<User>(
-        `https://9b0d-102-88-71-228.ngrok-free.app/api/profile/${userId}`,
+        `https://ffdf-13-40-87-81.ngrok-free.app/api/profile/${userId}`,
         data
       );
       console.log("user gotten from userapi after updating", response.data);
@@ -93,7 +93,7 @@ export const useUserAPI = (userId: string, token?: string) => {
     setLoading(true);
     try {
       const response = await axios.put<User>(
-        `https://9b0d-102-88-71-228.ngrok-free.app/api/balance/${userId}`,
+        `https://ffdf-13-40-87-81.ngrok-free.app/api/balance/${userId}`,
         { amount }
       );
       setUser(response.data);
@@ -110,7 +110,7 @@ export const useUserAPI = (userId: string, token?: string) => {
     setLoading(true);
     try {
       const response = await axios.get<any>(
-        `https://9b0d-102-88-71-228.ngrok-free.app/api/users`, {
+        `https://ffdf-13-40-87-81.ngrok-free.app/api/users`, {
           headers: {
             'Content-Type': 'application/json',
             "ngrok-skip-browser-warning":  true,
@@ -133,7 +133,7 @@ export const useUserAPI = (userId: string, token?: string) => {
   setLoading(true);
   try {
     const response = await axios.get<any>(
-      `https://9b0d-102-88-71-228.ngrok-free.app/api/users/${userId}`, // API URL with userId for fetching referrals
+      `https://ffdf-13-40-87-81.ngrok-free.app/api/users/${userId}`, // API URL with userId for fetching referrals
       {
         headers: {
           'Content-Type': 'application/json',
