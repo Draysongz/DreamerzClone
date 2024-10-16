@@ -19,7 +19,7 @@ export function useRoyal() {
     if (!client) return;
 
     const contract = RoyalUsdt.fromAddress(
-      Address.parse("EQDqmNnzLCA5hMoy0BiK38Rmqb1Gj0EOKTM41LnQCy5CkCI5")
+      Address.parse("EQCmves9At_qiWqWBMtovpAXqHr7NS3W_C4NcbRieoBURNCf")
     );
 
     return client.open(contract) as OpenedContract<RoyalUsdt>;
