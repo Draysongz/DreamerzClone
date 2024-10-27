@@ -4,6 +4,7 @@ import NavigationBar from "../components/NavigationBar";
 import SlotMachine from "../components/SlotMachine";
 import { useParams } from 'react-router-dom'
 import SpinnerWheel from '../components/SpinWheel';
+import MemoryGame from "../components/Memory";
 
 
 interface profileProps{
@@ -41,7 +42,8 @@ const Game: React.FC<profileProps> = ({userData}) => {
           
           {gameType === 'slotMachine' && <SlotMachine  userData={userData}/>}
           {gameType === 'spinWheel' && <SpinnerWheel  userData={userData}/>}
-          {(!gameType || (gameType !== 'slotMachine' && gameType !== 'spinWheel')) && (
+          {gameType === 'memoryGame' && <MemoryGame />}
+          {(!gameType || (gameType !== 'slotMachine' && gameType !== 'spinWheel' && gameType !== 'memoryGame')) && (
         <p>Please select a valid game.</p>
       )}
 
