@@ -50,7 +50,7 @@ export const useUserAPI = (userId: string, token?: string) => {
     setLoading(true);
     try {
       const response = await axios.get<User>(
-        `https://ffdf-13-40-87-81.ngrok-free.app/api/profile/${userId}`,
+        `https://6e7d-105-112-198-195.ngrok-free.app/api/profile/${userId}`,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ export const useUserAPI = (userId: string, token?: string) => {
     setLoading(true);
     try {
       const response = await axios.put<User>(
-        `https://ffdf-13-40-87-81.ngrok-free.app/api/profile/${userId}`,
+        `https://6e7d-105-112-198-195.ngrok-free.app/api/profile/${userId}`,
         data
       );
       console.log("user gotten from userapi after updating", response.data);
@@ -93,7 +93,7 @@ export const useUserAPI = (userId: string, token?: string) => {
     setLoading(true);
     try {
       const response = await axios.put<User>(
-        `https://ffdf-13-40-87-81.ngrok-free.app/api/balance/${userId}`,
+        `https://6e7d-105-112-198-195.ngrok-free.app/api/balance/${userId}`,
         { amount }
       );
       setUser(response.data);
@@ -110,7 +110,7 @@ export const useUserAPI = (userId: string, token?: string) => {
     setLoading(true);
     try {
       const response = await axios.get<any>(
-        `https://ffdf-13-40-87-81.ngrok-free.app/api/users`, {
+        `https://6e7d-105-112-198-195.ngrok-free.app/api/users`, {
           headers: {
             'Content-Type': 'application/json',
             "ngrok-skip-browser-warning":  true,
@@ -133,7 +133,7 @@ export const useUserAPI = (userId: string, token?: string) => {
   setLoading(true);
   try {
     const response = await axios.get<any>(
-      `https://ffdf-13-40-87-81.ngrok-free.app/api/users/${userId}`, // API URL with userId for fetching referrals
+      `https://6e7d-105-112-198-195.ngrok-free.app/api/users/${userId}`, // API URL with userId for fetching referrals
       {
         headers: {
           'Content-Type': 'application/json',
